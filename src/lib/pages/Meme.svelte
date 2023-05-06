@@ -22,10 +22,11 @@
       image.src = img;
       image.onload = () => {
         canvas.width = image.width;
+        
         canvas.height = image.height;
         ctx.drawImage(image, 0, 0);
         ctx.fillStyle = textColor;
-        ctx.font = "36px sans-serif";
+        ctx.font = "bold 2.5vw Arial";
         ctx.textAlign = "center";
         ctx.fillText(topText, canvas.width / 2, 50);
         ctx.fillText(bottomText, canvas.width / 2, canvas.height - 50);
