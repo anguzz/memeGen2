@@ -1,62 +1,78 @@
 <script>
-    import { saveAs } from 'file-saver';
-    
-    let img, fileinput, caption = "";
-    const temp = "/temp.png";
-    const uploadImg = "/upload.png";
+    let img, fileinput;
+    let temp = "/temp.png";
+    let uploadImg = "/upload.png";
+    let topText = "";
+    let bottomText = "";
+    let textColor = "#ffffff";
     
     const onFileSelected = (e) => {
-      const image = e.target.files[0];
-      const reader = new FileReader();
+      let image = e.target.files[0];
+      let reader = new FileReader();
       reader.readAsDataURL(image);
-      reader.onload = e => {
+      reader.onload = (e) => {
         img = e.target.result;
       };
     };
-    
+  
     const saveImage = () => {
       const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
       const image = new Image();
       image.src = img;
       image.onload = () => {
         canvas.width = image.width;
         canvas.height = image.height;
-        context.drawImage(image, 0, 0);
-        context.fillStyle = "white";
-        context.font = "bold 20px Arial";
-        context.textAlign = "center";
-        context.fillText(caption, canvas.width / 2, canvas.height - 30);
-        canvas.toBlob(blob => {
-          saveAs(blob, "image-with-caption.png");
-        });
+        ctx.drawImage(image, 0, 0);
+        ctx.fillStyle = textColor;
+        ctx.font = "36px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(topText, canvas.width / 2, 50);
+        ctx.fillText(bottomText, canvas.width / 2, canvas.height - 50);
+        const link = document.createElement("a");
+        link.download = "image.png";
+        link.href = canvas.toDataURL();
+        link.click();
       };
+    };
+    
+    const changeTextColor = () => {
+      const colorPicker = document.getElementById("color-picker");
+      textColor = colorPicker.value;
     };
   </script>
   
   <div id="app">
     {#if img}
-      <div style="position: relative;">
-        <img class="tempImg" src="{img}" alt="d" />
-        <div class="caption-prev">
-          {caption}
-        </div>
-      </div>
+      <img class="tempImg" src="{img}" alt="d" />
     {:else}
+
     {/if}
+
+    <div class="upload-wrapper">
+        <img class="upload" src={uploadImg} alt="" on:click={() => { fileinput.click(); }} />
+        <div class="chan" on:click={() => { fileinput.click(); }}>Upload Image</div>
+        <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e) => onFileSelected(e)} bind:this={fileinput} />
+      </div>
+
+      <br><br>
+    <div class="caption-form">
+      <label for="top-text">Top Caption:</label>
+      <input type="text" id="top-text" bind:value={topText} />
   
-    <br><br>
-    <img class="upload" src={uploadImg} alt="" on:click={() => { fileinput.click(); }} />
-    <div class="chan" on:click={() => { fileinput.click(); }}>Upload Image</div> 
-    <br>
+      <label for="bottom-text">Bottom Caption:</label>
+      <input type="text" id="bottom-text" bind:value={bottomText} />
   
-    <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e) => onFileSelected(e)} bind:this={fileinput} />
-    <input type="text" placeholder="Enter caption" bind:value={caption} color="black"/>
-    <button class="button" on:click={saveImage}>Save Image</button>
+      <label for="color-picker">Text Color:</label>
+      <input type="color" id="color-picker" value={textColor} on:change={changeTextColor} />
+      <br>
+      
+      <button class="button" on:click={saveImage}>Save Image</button>
+    </div>
+  
+   
   </div>
   
-  
-    
     
 <style>
 	#app{
@@ -82,17 +98,7 @@ background-color : #2b2929;
 
 	}
 
-    .caption-prev{
-        position: absolute;
-        bottom: 0;
-        left: 0; 
-        right: 0;
-        padding: 5px;
-        text-align: center;
-        color:rgb(251, 0, 255);
-        font-weight: 400;
-        font-size:x-large;
-    }
+   
 
     .button{
         background-color: rgb(53, 73, 223);
