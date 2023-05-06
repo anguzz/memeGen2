@@ -1,26 +1,13 @@
-<script lang="ts" context="module">
+<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 
-</script>
-
-<script lang="ts">
-  import SEO from "svelte-seo";
-  import Content from "$lib/pages/Content.svelte";
-  import Home from "$lib/pages/Home.svelte";
-  import Footer from "$lib/pages/Footer.svelte";
-
-/* basic colors at  https://tailwindcss.com/docs/customizing-colors   more at  https://hypercolor.dev/   */ 
-  let primaryBackground = "bg-gradient-to-r from-slate-900 to-blue-900";
-  let neutralBackground = "bg-neutral-200 dark:bg-neutral-900";
-</script>
-
-<SEO
-  title="site name"
-  description="site desc"
-  canonical="link"
-/>
-
-<Home />
-<!--About me/bio-->
-<Content backgroundClass={primaryBackground} />
-
-<Footer  />
+<div class="container h-full mx-auto flex justify-center items-center">
+	<div class="space-y-5">
+		<h1>Let's get cracking bones!</h1>
+		<p>Start by exploring:</p>
+		<ul>
+			<li><code>/src/routes/+layout.svelte</code> - barebones layout, the CSS import order is critical!</li>
+			<li><code>/src/app.postcss</code> - minimal css to make the page full screen, may not be relevant for your project</li>
+			<li><code>/src/routes/+page.svelte</code> - this page, you can replace the contents</li>
+		</ul>
+	</div>
+</div>
