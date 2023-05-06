@@ -26,7 +26,7 @@
         canvas.height = image.height;
         ctx.drawImage(image, 0, 0);
         ctx.fillStyle = textColor;
-        ctx.font = "bold 2.5vw Arial";
+        ctx.font = "bold 3.5vw Arial";
         ctx.textAlign = "center";
         ctx.fillText(topText, canvas.width / 2, 50);
         ctx.fillText(bottomText, canvas.width / 2, canvas.height - 50);
