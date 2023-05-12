@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"file-saver": "^2.0.5"
+		"file-saver": "^2.0.5",
+		"svelte-materialify": "^0.3.11"
 	}
 }
