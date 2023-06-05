@@ -90,16 +90,16 @@ background-color : #2b2929;
 }
 	.upload{
 		display:flex;
-	height:50px;
+	  height:50px;
 		width:50px;
 		cursor:pointer;
+    margin-left:20px;
 	}
 	.tempImg{
 		display:flex;
 
 	}
 
-   
 
     .button{
         background-color: rgb(53, 73, 223);
